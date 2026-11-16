@@ -88,4 +88,8 @@ The script scans again, lists the matches, and prompts for the exact text `DELET
 - Deletion is permanent. Review the preview before confirming, especially when using `--user` or omitting `--contains`.
 - Slack API failures stop the deletion loop, but messages deleted before the failure are not restored. An interruption may also leave a partially completed deletion.
 - Scanning many messages or threads can take time. Requests are paced to avoid bursts, and the script also honors Slack's `Retry-After` delay if the API still rate-limits a request.
+<<<<<<< HEAD
 - The script relies on Slack's API access and permissions; it cannot bypass workspace restrictions.
+=======
+- The script relies on Slack's API access and permissions; it cannot bypass workspace restrictions.
+>>>>>>> a444d34 (initial commit)
