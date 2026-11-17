@@ -115,6 +115,7 @@ def messages(token, method, budget, **parameters):
 def find_matches(token, channel, user_id, contains, max_messages):
     matches = {}
     budget = MessageBudget(max_messages)
+    folded_contains = contains.casefold() if contains is not None else None
 
     def consider(message, is_reply=False):
         if (
@@ -123,7 +124,10 @@ def find_matches(token, channel, user_id, contains, max_messages):
             and not message.get("bot_id")
             and isinstance(message.get("ts"), str)
             and isinstance(message.get("text"), str)
-            and (contains is None or contains in message["text"])
+            and (
+                folded_contains is None
+                or folded_contains in message["text"].casefold()
+            )
         ):
             matches[message["ts"]] = (message, is_reply)
 
@@ -152,7 +156,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("channel", help="Slack conversation ID, e.g. C... or D...")
     parser.add_argument(
-        "--contains", help="Only match messages containing this case-sensitive text"
+        "--contains", help="Only match messages containing this text (case-insensitive)"
     )
     parser.add_argument(
         "--user",

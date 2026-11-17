@@ -51,7 +51,7 @@ Preview messages authored by the token owner in a conversation:
 python3 slack_delete_messages.py C0123456789
 ```
 
-Only show messages containing a case-sensitive substring:
+Only show messages containing a case-insensitive substring:
 
 ```sh
 python3 slack_delete_messages.py C0123456789 --contains 'old announcement'
@@ -83,7 +83,7 @@ The script scans again, lists the matches, and prompts for the exact text `DELET
 
 - Without `--delete`, the script does not delete messages.
 - It scans conversation history and thread replies, matching regular messages by the specified user. Bot-authored messages are excluded.
-- `--contains` is a case-sensitive substring match. Omit it to match all eligible messages.
+- `--contains` is a case-insensitive substring match. Omit it to match all eligible messages.
 - If a scan reaches an explicit `--max-messages` limit while more results remain, the preview is marked incomplete and `--delete` will not proceed. `--contains` filters locally and does not reduce the messages fetched from Slack.
 - Deletion is permanent. Review the preview before confirming, especially when using `--user` or omitting `--contains`.
 - Slack API failures stop the deletion loop, but messages deleted before the failure are not restored. An interruption may also leave a partially completed deletion.
